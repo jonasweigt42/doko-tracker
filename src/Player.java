@@ -8,6 +8,7 @@ public class Player
 	{
 		this.name = name;
 	}
+	
 	public String getName()
 	{
 		return name;
@@ -17,6 +18,7 @@ public class Player
 	{
 		return overallScore;
 	}
+	
 	public void addScore(int scoreToAdd)
 	{
 		overallScore = overallScore + scoreToAdd;
