@@ -1,11 +1,16 @@
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 public class Session
 {
 
 	private List<Game> games;
-	private Date date;
+	private LocalDate date;
+	
+	public Session(LocalDate date)
+	{
+		this.date = date;
+	}
 	
 	public List<Game> getGames()
 	{
@@ -15,14 +20,11 @@ public class Session
 	{
 		this.games = games;
 	}
-	public Date getDate()
+	public LocalDate getDate()
 	{
 		return date;
 	}
-	public void setDate(Date date)
-	{
-		this.date = date;
-	}
+
 	
 	
 }
