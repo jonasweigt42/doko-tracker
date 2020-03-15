@@ -11,9 +11,11 @@ public class Main
 	{
 		List<Session> sessions = FileMapper.calculateSessions();
 		
-		int anzahlSpiele = DataCruncher.countAllGames(sessions);
+		DataCruncher dataCruncher = new DataCruncher(sessions);
 		
-		int anzahlSolos = DataCruncher.countAllSolos(sessions);
+		int anzahlSpiele = dataCruncher.getGameCount();
+		
+		int anzahlSolos = dataCruncher.getSoloCount();
 		
 		System.out.println("Anzahl gespielter Spiele: " + anzahlSpiele);
 

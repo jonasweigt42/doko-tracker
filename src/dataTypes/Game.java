@@ -1,43 +1,24 @@
 package dataTypes;
 
+import java.util.List;
+
 public class Game
 {
 
-	private GameScore gameScore1;
-	private GameScore gameScore2;
-	private GameScore gameScore3;
-	private GameScore gameScore4;
+	private List<GameScore> gamesScores;
 	private Player dealer;
 	private Player soloPlayer;
 	
-	public Game(GameScore gameScore1, GameScore gameScore2, GameScore gameScore3, GameScore gameScore4, Player dealer, Player soloPlayer)
+	public Game(List<GameScore> gamesScores, Player dealer, Player soloPlayer)
 	{
-		this.gameScore1 = gameScore1;
-		this.gameScore2 = gameScore2;
-		this.gameScore3 = gameScore3;
-		this.gameScore4 = gameScore4;
+		this.gamesScores = gamesScores;
 		this.dealer = dealer;
 		this.soloPlayer = soloPlayer;
 	}
 	
-	public GameScore getGameScore1()
+	public List<GameScore> getGameScores()
 	{
-		return gameScore1;
-	}
-	
-	public GameScore getGameScore2()
-	{
-		return gameScore2;
-	}
-	
-	public GameScore getGameScore3()
-	{
-		return gameScore3;
-	}
-	
-	public GameScore getGameScore4()
-	{
-		return gameScore4;
+		return gamesScores;
 	}
 	
 	public Player getDealer()

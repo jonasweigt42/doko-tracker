@@ -82,7 +82,7 @@ public class FileMapper
 
 		} catch (Exception e)
 		{
-			System.out.println(e.getMessage());
+			logger.info(e.getMessage());
 			return null;
 		}
 
@@ -98,9 +98,14 @@ public class FileMapper
 			String[] gameData = line.split(",");
 
 			String possibleSoloPlayer = calcSoloPlayer(gameData);
-
-			gamesOfSession.add(new Game(new GameScore(gameData[1], player1), new GameScore(gameData[2], player2),
-					new GameScore(gameData[3], player3), new GameScore(gameData[4], player4),
+			
+			List<GameScore> gameScores = new ArrayList<GameScore>();
+			gameScores.add(new GameScore(gameData[1], player1));
+			gameScores.add(new GameScore(gameData[2], player2));
+			gameScores.add(new GameScore(gameData[3], player3));
+			gameScores.add(new GameScore(gameData[4], player4));
+			
+			gamesOfSession.add(new Game(gameScores,
 					mapPlayerByName(gameData[0], player1, player2, player3, player4),
 					mapPlayerByName(possibleSoloPlayer, player1, player2, player3, player4)));
 

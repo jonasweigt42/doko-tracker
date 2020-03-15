@@ -8,30 +8,40 @@ import dataTypes.Session;
 public class DataCruncher
 {
 
-	public static int countAllGames(List<Session> sessions)
+	private List<Session> sessionData;
+	
+	private int gameCount;
+	private int soloCount;
+	
+	public DataCruncher(List<Session> sessionData)
 	{
-		int result = 0;
-		for(Session session : sessions)
-		{
-			result += session.getGames().size();
-		}
-		return result;
+		this.sessionData = sessionData;
+		calculateGames();
 	}
 	
-	public static int countAllSolos(List<Session> sessions)
+	private void calculateGames()
 	{
-		int result = 0;
-		for(Session session : sessions)
+		for(Session session : sessionData)
 		{
+			gameCount += session.getGames().size();
 			for(Game game : session.getGames())
 			{
 			 	if(game.getSoloPlayer() != null)
 			 	{
-			 		result++;
+			 		soloCount++;
 			 	}
 			}
 		}
-		return result;
+	}
+	
+	public int getGameCount()
+	{
+		return gameCount;
+	}
+
+	public int getSoloCount()
+	{
+		return soloCount;
 	}
 	
 }
