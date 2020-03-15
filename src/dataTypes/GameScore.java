@@ -1,4 +1,4 @@
-
+package dataTypes;
 public class GameScore
 {
 

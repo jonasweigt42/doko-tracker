@@ -1,3 +1,4 @@
+package dataTypes;
 
 public class Game
 {
@@ -9,14 +10,14 @@ public class Game
 	private Player dealer;
 	private Player soloPlayer;
 	
-	public Game(GameScore gameScore1, GameScore gameScore2, GameScore gameScore3, GameScore gameScore4, Player dealer)
+	public Game(GameScore gameScore1, GameScore gameScore2, GameScore gameScore3, GameScore gameScore4, Player dealer, Player soloPlayer)
 	{
 		this.gameScore1 = gameScore1;
 		this.gameScore2 = gameScore2;
 		this.gameScore3 = gameScore3;
 		this.gameScore4 = gameScore4;
 		this.dealer = dealer;
-		soloPlayer = calculateSoloPlayer();
+		this.soloPlayer = soloPlayer;
 	}
 	
 	public GameScore getGameScore1()
@@ -47,12 +48,6 @@ public class Game
 	public Player getSoloPlayer()
 	{
 		return soloPlayer;
-	}
-	
-	private Player calculateSoloPlayer()
-	{
-		//TODO implement
-		return null;
 	}
 	
 }
