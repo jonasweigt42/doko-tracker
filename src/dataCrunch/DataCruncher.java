@@ -1,9 +1,12 @@
 package dataCrunch;
 
 import java.text.DecimalFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import dataTypes.Game;
+import dataTypes.Player;
 import dataTypes.Session;
 
 public class DataCruncher
@@ -14,6 +17,7 @@ public class DataCruncher
 	private int gameCount;
 	private int soloCount;
 	private int overallScore;
+	private Map<Player, Game> soloMap = new HashMap<>(); 
 	
 	public DataCruncher(List<Session> sessionData)
 	{
@@ -32,6 +36,7 @@ public class DataCruncher
 			 	if(game.getSoloPlayer() != null)
 			 	{
 			 		soloCount++;
+			 		soloMap.put(game.getSoloPlayer(), game);
 			 	}
 			}
 		}
