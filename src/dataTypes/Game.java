@@ -5,20 +5,39 @@ import java.util.List;
 public class Game
 {
 
-	private List<GameScore> gamesScores;
+	private List<PlayerScore> playerScores;
 	private Player dealer;
 	private Player soloPlayer;
+	private int score;
 	
-	public Game(List<GameScore> gamesScores, Player dealer, Player soloPlayer)
+	public Game(List<PlayerScore> playerScores, Player dealer, Player soloPlayer)
 	{
-		this.gamesScores = gamesScores;
+		this.playerScores = playerScores;
 		this.dealer = dealer;
 		this.soloPlayer = soloPlayer;
+		calculateScore();
 	}
 	
-	public List<GameScore> getGameScores()
+	private void calculateScore()
 	{
-		return gamesScores;
+		score = 0;
+		for(PlayerScore pScore : playerScores)
+		{
+			if(pScore.getscore() > 0)
+			{
+				score = pScore.getscore();
+			}
+		}
+	}
+	
+	public int getScore()
+	{
+		return score;
+	}
+
+	public List<PlayerScore> getPlayerScores()
+	{
+		return playerScores;
 	}
 	
 	public Player getDealer()

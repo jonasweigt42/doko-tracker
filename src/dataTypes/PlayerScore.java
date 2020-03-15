@@ -1,11 +1,11 @@
 package dataTypes;
-public class GameScore
+public class PlayerScore
 {
 
 	private String score;
 	private Player player;
 	
-	public GameScore(String score, Player player)
+	public PlayerScore(String score, Player player)
 	{
 		this.score = score;
 		this.player = player;

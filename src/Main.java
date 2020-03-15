@@ -28,6 +28,8 @@ public class Main
 		System.out.println("Anzahl gespielter Spiele: " + anzahlSpiele);
 
 		System.out.println("Anzahl Solos " + anzahlSolos);
+		
+		
 	}
 
 

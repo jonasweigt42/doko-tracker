@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import dataTypes.Game;
-import dataTypes.GameScore;
+import dataTypes.PlayerScore;
 import dataTypes.Player;
 import dataTypes.PlayerPool;
 import dataTypes.Session;
@@ -100,11 +100,11 @@ public class FileMapper
 
 			String possibleSoloPlayer = calcSoloPlayer(gameData);
 			
-			List<GameScore> gameScores = new ArrayList<GameScore>();
-			gameScores.add(new GameScore(gameData[1], player1));
-			gameScores.add(new GameScore(gameData[2], player2));
-			gameScores.add(new GameScore(gameData[3], player3));
-			gameScores.add(new GameScore(gameData[4], player4));
+			List<PlayerScore> gameScores = new ArrayList<PlayerScore>();
+			gameScores.add(new PlayerScore(gameData[1], player1));
+			gameScores.add(new PlayerScore(gameData[2], player2));
+			gameScores.add(new PlayerScore(gameData[3], player3));
+			gameScores.add(new PlayerScore(gameData[4], player4));
 			
 			gamesOfSession.add(new Game(gameScores,
 					mapPlayerByName(gameData[0], player1, player2, player3, player4),

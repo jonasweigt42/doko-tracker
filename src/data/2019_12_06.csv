@@ -1,0 +1,10 @@
+Dealer,Erika,Jochen,Eva,Jonas,Solo
+Erika,0,2,0,2,
+Jochen,0,0,3,3,
+Eva,0,4,4,0,
+Jonas,0,7,7,0,
+Erika,3,0,0,3,
+Jochen,1,0,0,1,
+Eva,0,7,7,7,Erika
+Eva,0,2,2,0,
+Jonas,0,4,4,0,
