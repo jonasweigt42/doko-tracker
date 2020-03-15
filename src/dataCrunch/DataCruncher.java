@@ -1,5 +1,6 @@
 package dataCrunch;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import dataTypes.Game;
@@ -36,9 +37,10 @@ public class DataCruncher
 		}
 	}
 	
-	public int getScorePerGame()
+	public String getScorePerGame()
 	{
-		return overallScore / gameCount;
+		DecimalFormat df = new DecimalFormat("0.00");
+		return df.format((double)overallScore / (double)gameCount);
 	}
 	
 	public int getOverallScore()

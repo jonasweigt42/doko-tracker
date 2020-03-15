@@ -1,3 +1,4 @@
+import java.text.DecimalFormat;
 import java.util.List;
 
 import dataCrunch.DataCruncher;
@@ -12,26 +13,28 @@ public class Main
 	public static void main(String[] args)
 	{
 		List<Session> sessions = FileMapper.calculateSessions();
-		
+
 		DataCruncher dataCruncher = new DataCruncher(sessions);
-		
+
 		int anzahlSpiele = dataCruncher.getGameCount();
-		
+
 		int anzahlSolos = dataCruncher.getSoloCount();
-		
+
 		List<Player> players = PlayerPool.getAllPlayers();
-		for(Player p : players)
+
+		DecimalFormat df = new DecimalFormat("0.00");
+		for (Player p : players)
 		{
-			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore());
+			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore()
+					+ ", Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele));
 		}
-		
+
 		System.out.println("Anzahl gespielter Spiele: " + anzahlSpiele);
 
 		System.out.println("Anzahl Solos " + anzahlSolos);
-		
-		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCruncher.getScorePerGame());
-		
-	}
 
+		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCruncher.getScorePerGame());
+
+	}
 
 }
