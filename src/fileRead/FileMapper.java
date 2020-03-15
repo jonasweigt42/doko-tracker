@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import dataTypes.Game;
 import dataTypes.GameScore;
 import dataTypes.Player;
+import dataTypes.PlayerPool;
 import dataTypes.Session;
 
 public class FileMapper
@@ -71,10 +72,10 @@ public class FileMapper
 
 			String firstline = csvReader.readLine();
 			String[] players = firstline.split(",");
-			Player player1 = new Player(players[1]);
-			Player player2 = new Player(players[2]);
-			Player player3 = new Player(players[3]);
-			Player player4 = new Player(players[4]);
+			Player player1 = PlayerPool.getOrCreatePlayer(players[1]);
+			Player player2 = PlayerPool.getOrCreatePlayer(players[2]);
+			Player player3 = PlayerPool.getOrCreatePlayer(players[3]);
+			Player player4 = PlayerPool.getOrCreatePlayer(players[4]);
 
 			List<Game> gamesOfSession = extractGames(csvReader, player1, player2, player3, player4);
 			session.setGames(gamesOfSession);

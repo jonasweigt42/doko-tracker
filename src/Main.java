@@ -1,6 +1,8 @@
 import java.util.List;
 
 import dataCrunch.DataCruncher;
+import dataTypes.Player;
+import dataTypes.PlayerPool;
 import dataTypes.Session;
 import fileRead.FileMapper;
 
@@ -16,6 +18,12 @@ public class Main
 		int anzahlSpiele = dataCruncher.getGameCount();
 		
 		int anzahlSolos = dataCruncher.getSoloCount();
+		
+		List<Player> players = PlayerPool.getAllPlayers();
+		for(Player p : players)
+		{
+			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore());
+		}
 		
 		System.out.println("Anzahl gespielter Spiele: " + anzahlSpiele);
 

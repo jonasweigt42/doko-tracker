@@ -9,6 +9,7 @@ public class GameScore
 	{
 		this.score = score;
 		this.player = player;
+		player.addScore(Integer.parseInt(score));
 	}
 	
 	public int getscore()
