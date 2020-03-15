@@ -1,0 +1,16 @@
+Dealer,Eva,Jochen,Erika,Jonas,Solo
+Eva,1,1,0,0,
+Jochen,4,4,0,0,
+Erika,0,4,0,0,Jochen,
+Erika,0,0,6,6,
+Jonas,0,2,0,2,
+Eva,1,0,1,0,
+Jochen,2,0,0,2,
+Erika,2,2,0,0,
+Jonas,0,0,5,5,
+Eva,0,5,0,5,
+Jochen,3,0,3,3,Jochen
+Jochen,0,1,0,1,
+Erika,0,15,15,15,Eva
+Erika,0,1,0,1,
+Jonas,3,0,0,3,
