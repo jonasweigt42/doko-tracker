@@ -12,6 +12,7 @@ public class DataCruncher
 	
 	private int gameCount;
 	private int soloCount;
+	private int overallScore;
 	
 	public DataCruncher(List<Session> sessionData)
 	{
@@ -26,12 +27,23 @@ public class DataCruncher
 			gameCount += session.getGames().size();
 			for(Game game : session.getGames())
 			{
+				overallScore += game.getScore();
 			 	if(game.getSoloPlayer() != null)
 			 	{
 			 		soloCount++;
 			 	}
 			}
 		}
+	}
+	
+	public int getScorePerGame()
+	{
+		return overallScore / gameCount;
+	}
+	
+	public int getOverallScore()
+	{
+		return overallScore;
 	}
 	
 	public int getGameCount()
