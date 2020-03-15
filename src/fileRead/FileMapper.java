@@ -10,10 +10,10 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import dataCrunch.PlayerPool;
 import dataTypes.Game;
 import dataTypes.PlayerScore;
 import dataTypes.Player;
-import dataTypes.PlayerPool;
 import dataTypes.Session;
 
 public class FileMapper

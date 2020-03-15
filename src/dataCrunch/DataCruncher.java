@@ -1,9 +1,9 @@
 package dataCrunch;
 
 import java.text.DecimalFormat;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import dataTypes.Game;
 import dataTypes.Player;
@@ -17,7 +17,7 @@ public class DataCruncher
 	private int gameCount;
 	private int soloCount;
 	private int overallScore;
-	private Map<Player, Game> soloMap = new HashMap<>(); 
+	private List<Game> solos = new ArrayList<>();
 	
 	public DataCruncher(List<Session> sessionData)
 	{
@@ -36,7 +36,7 @@ public class DataCruncher
 			 	if(game.getSoloPlayer() != null)
 			 	{
 			 		soloCount++;
-			 		soloMap.put(game.getSoloPlayer(), game);
+			 		solos.add(game);
 			 	}
 			}
 		}
@@ -46,6 +46,11 @@ public class DataCruncher
 	{
 		DecimalFormat df = new DecimalFormat("0.00");
 		return df.format((double)overallScore / (double)gameCount);
+	}
+	
+	public List<Game> getSolosForPlayer(Player player)
+	{
+		return solos.stream().filter(game -> game.getSoloPlayer().equals(player)).collect(Collectors.toList());
 	}
 	
 	public int getOverallScore()

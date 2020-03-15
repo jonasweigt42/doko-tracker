@@ -2,8 +2,8 @@ import java.text.DecimalFormat;
 import java.util.List;
 
 import dataCrunch.DataCruncher;
+import dataCrunch.PlayerPool;
 import dataTypes.Player;
-import dataTypes.PlayerPool;
 import dataTypes.Session;
 import fileRead.FileMapper;
 
@@ -26,7 +26,8 @@ public class Main
 		for (Player p : players)
 		{
 			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore()
-					+ ", Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele));
+					+ ", Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele)
+					+ ", Anzahl Solos: " + dataCruncher.getSolosForPlayer(p).size());
 		}
 
 		System.out.println("Anzahl gespielter Spiele: " + anzahlSpiele);
