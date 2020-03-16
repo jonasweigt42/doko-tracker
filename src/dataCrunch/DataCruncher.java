@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import dataTypes.Game;
 import dataTypes.Player;
+import dataTypes.PlayerScore;
 import dataTypes.Session;
 
 public class DataCruncher
@@ -18,6 +19,9 @@ public class DataCruncher
 	private int soloCount;
 	private int overallScore;
 	private List<Game> solos = new ArrayList<>();
+	private List<Game> allGames = new ArrayList<>();
+	
+	private DecimalFormat df = new DecimalFormat("0.00");
 	
 	public DataCruncher(List<Session> sessionData)
 	{
@@ -32,6 +36,7 @@ public class DataCruncher
 			gameCount += session.getGames().size();
 			for(Game game : session.getGames())
 			{
+				allGames.add(game);
 				overallScore += game.getScore();
 			 	if(game.getSoloPlayer() != null)
 			 	{
@@ -42,9 +47,24 @@ public class DataCruncher
 		}
 	}
 	
+	public String getWonPercentagePerPlayer(Player player)
+	{
+		int wonCounter = 0;
+		for(Game game : allGames)
+		{
+			for(PlayerScore score : game.getPlayerScores())
+			{
+				if(score.getPlayer().equals(player) && score.getscore() == 0)
+				{
+					wonCounter++;
+				}
+			}
+		}
+		return df.format(((double)wonCounter / (double)gameCount)*100);
+	}
+	
 	public String getScorePerGame()
 	{
-		DecimalFormat df = new DecimalFormat("0.00");
 		return df.format((double)overallScore / (double)gameCount);
 	}
 	
