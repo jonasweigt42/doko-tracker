@@ -8,19 +8,17 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Logger;
 
 import dataCrunch.PlayerPool;
 import dataTypes.Game;
-import dataTypes.PlayerScore;
 import dataTypes.Player;
+import dataTypes.PlayerScore;
 import dataTypes.Session;
 import exceptions.InvalidDealerException;
 import exceptions.InvalidHeaderException;
 
 public class FileMapper
 {
-	private static Logger logger = Logger.getLogger(FileMapper.class.getName());
 
 	public static List<Session> calculateSessions() throws IOException
 	{
@@ -90,16 +88,6 @@ public class FileMapper
 		return gamesOfSession;
 	}
 
-	private static Player calcDealer(String name, Player... players) throws InvalidDealerException
-	{
-		Player dealer = mapPlayerByName(name, players);
-		if (dealer != null)
-		{
-			return dealer;
-		}
-		throw new InvalidDealerException("Dealername was not found!");
-	}
-
 	private static Player mapPlayerByName(String name, Player... players)
 	{
 		for (Player player : players)
@@ -125,16 +113,22 @@ public class FileMapper
 		return LocalDate.of(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]),
 				Integer.parseInt(splitted[2]));
 	}
+	
+	private static Player calcDealer(String name, Player... players) throws InvalidDealerException
+	{
+		Player dealer = mapPlayerByName(name, players);
+		if (dealer != null)
+		{
+			return dealer;
+		}
+		throw new InvalidDealerException("Dealername was not found!");
+	}
 
 	private static String calcSoloPlayer(String[] gameData)
 	{
-		try
+		if(gameData.length > 5)
 		{
-			logger.info("Solo von " + gameData[5]);
 			return gameData[5];
-		} catch (Exception e)
-		{
-			logger.info("Kein Solospiel vorhanden");
 		}
 		return null;
 	}

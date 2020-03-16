@@ -22,10 +22,10 @@ public class DataCruncher
 	public DataCruncher(List<Session> sessionData)
 	{
 		this.sessionData = sessionData;
-		calculateGames();
+		crunchData();
 	}
 	
-	private void calculateGames()
+	private void crunchData()
 	{
 		for(Session session : sessionData)
 		{
