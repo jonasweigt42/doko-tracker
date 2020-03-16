@@ -11,12 +11,11 @@ public class PlayerPool {
 
 	public static Player getOrCreatePlayer(String name) {
 
-		players.stream()
+		return players.stream()
 				.filter(p -> p.getName().equals(name))
 				.findFirst()
 				.orElse(createPlayer(name));
 
-		return createPlayer(name);
 	}
 
 	private static Player createPlayer(String name) {
