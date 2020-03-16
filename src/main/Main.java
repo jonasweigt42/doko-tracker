@@ -30,6 +30,7 @@ public class Main
 			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore()
 					+ ", Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele)
 					+ ", Anzahl Solos: " + dataCruncher.getSolosForPlayer(p).size());
+			System.out.println("");
 		}
 
 		System.out.println("Anzahl gespielter Spiele: " + anzahlSpiele);
