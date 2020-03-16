@@ -14,7 +14,7 @@ public class PlayerPool {
 		return players.stream()
 				.filter(p -> p.getName().equals(name))
 				.findFirst()
-				.orElse(createPlayer(name));
+				.orElseGet(() -> createPlayer(name));
 
 	}
 
