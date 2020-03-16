@@ -1,6 +1,8 @@
 package exceptions;
 
-public class InvalidDealerException extends RuntimeException
+import java.io.IOException;
+
+public class InvalidDealerException extends IOException
 {
 
 	private static final long serialVersionUID = 1L;

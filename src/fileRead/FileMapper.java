@@ -22,7 +22,7 @@ public class FileMapper
 {
 	private static Logger logger = Logger.getLogger(FileMapper.class.getName());
 
-	public static List<Session> calculateSessions()
+	public static List<Session> calculateSessions() throws IOException
 	{
 		List<File> files = FileMapper.loadFiles();
 
@@ -31,44 +31,35 @@ public class FileMapper
 		for (File file : files)
 		{
 			Session session = transformFileToSession(file);
-			if (session != null)
-			{
-				sessions.add(session);
-			}
+			sessions.add(session);
 		}
 
 		return sessions;
 	}
-	
-	private static Session transformFileToSession(File file)
+
+	private static Session transformFileToSession(File file) throws IOException
 	{
-		try (BufferedReader csvReader = new BufferedReader(new FileReader(file)))
-		{
-			Session session = new Session(mapFileNameToDate(file.getName()));
+		BufferedReader csvReader = new BufferedReader(new FileReader(file));
 
-			String firstline = csvReader.readLine();
-			String[] firstLineArray = firstline.split(",");
-			checkFirstLineArray(firstLineArray);
-			Player player1 = PlayerPool.getOrCreatePlayer(firstLineArray[1]);
-			Player player2 = PlayerPool.getOrCreatePlayer(firstLineArray[2]);
-			Player player3 = PlayerPool.getOrCreatePlayer(firstLineArray[3]);
-			Player player4 = PlayerPool.getOrCreatePlayer(firstLineArray[4]);
+		Session session = new Session(mapFileNameToDate(file.getName()));
 
-			List<Game> gamesOfSession = extractGames(csvReader, player1, player2, player3, player4);
-			session.setGames(gamesOfSession);
-			return session;
+		String firstline = csvReader.readLine();
+		String[] firstLineArray = firstline.split(",");
+		checkFirstLineArray(firstLineArray);
+		Player player1 = PlayerPool.getOrCreatePlayer(firstLineArray[1]);
+		Player player2 = PlayerPool.getOrCreatePlayer(firstLineArray[2]);
+		Player player3 = PlayerPool.getOrCreatePlayer(firstLineArray[3]);
+		Player player4 = PlayerPool.getOrCreatePlayer(firstLineArray[4]);
 
-		} catch (Exception e)
-		{
-			logger.info(e.getMessage());
-			return null;
-		}
+		List<Game> gamesOfSession = extractGames(csvReader, player1, player2, player3, player4);
+		session.setGames(gamesOfSession);
+		return session;
 
 	}
-	
-	private static void checkFirstLineArray(String[] firstLineArray)
+
+	private static void checkFirstLineArray(String[] firstLineArray) throws InvalidHeaderException
 	{
-		if(firstLineArray[0].equals("Dealer") && firstLineArray[5].equals("Solo"))
+		if (firstLineArray[0].equals("Dealer") && firstLineArray[5].equals("Solo"))
 		{
 			return;
 		}
@@ -85,25 +76,24 @@ public class FileMapper
 			String[] gameData = line.split(",");
 
 			String possibleSoloPlayer = calcSoloPlayer(gameData);
-			
+
 			List<PlayerScore> gameScores = new ArrayList<PlayerScore>();
 			gameScores.add(new PlayerScore(gameData[1], player1));
 			gameScores.add(new PlayerScore(gameData[2], player2));
 			gameScores.add(new PlayerScore(gameData[3], player3));
 			gameScores.add(new PlayerScore(gameData[4], player4));
-			
-			gamesOfSession.add(new Game(gameScores,
-					calcDealer(gameData[0], player1, player2, player3, player4),
+
+			gamesOfSession.add(new Game(gameScores, calcDealer(gameData[0], player1, player2, player3, player4),
 					mapPlayerByName(possibleSoloPlayer, player1, player2, player3, player4)));
 
 		}
 		return gamesOfSession;
 	}
 
-	private static Player calcDealer(String name, Player... players)
+	private static Player calcDealer(String name, Player... players) throws InvalidDealerException
 	{
 		Player dealer = mapPlayerByName(name, players);
-		if(dealer != null)
+		if (dealer != null)
 		{
 			return dealer;
 		}

@@ -1,4 +1,5 @@
 package main;
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import fileRead.FileMapper;
 public class Main
 {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		List<Session> sessions = FileMapper.calculateSessions();
 
