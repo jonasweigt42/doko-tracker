@@ -63,6 +63,27 @@ public class DataCruncher
 		return df.format(((double)wonCounter / (double)gameCount)*100);
 	}
 	
+	public String getSoloWonPercentagePerPlayer(Player player)
+	{
+		int wonCounter = 0;
+		int soloCounter = 0;
+		for(Game game : solos)
+		{
+			if(game.getSoloPlayer().equals(player))
+			{
+				soloCounter++;
+				for(PlayerScore score : game.getPlayerScores())
+				{
+					if(score.getPlayer().equals(player) && score.getscore() == 0)
+					{
+						wonCounter++;
+					}
+				}
+			}
+		}
+		return df.format(((double)wonCounter / (double)soloCounter)*100);
+	}
+	
 	public String getScorePerGame()
 	{
 		return df.format((double)overallScore / (double)gameCount);
@@ -87,5 +108,5 @@ public class DataCruncher
 	{
 		return soloCount;
 	}
-	
+
 }

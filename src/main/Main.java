@@ -30,7 +30,7 @@ public class Main
 			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore()
 					+ ", " + dataCruncher.getWonPercentagePerPlayer(p) + " % gewonnen"
 					+ ", Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele)
-					+ ", Anzahl Solos: " + dataCruncher.getSolosForPlayer(p).size());
+					+ ", Anzahl Solos: " + dataCruncher.getSolosForPlayer(p).size() + " - " + dataCruncher.getSoloWonPercentagePerPlayer(p) + "% gewonnen");
 			System.out.println("");
 		}
 
