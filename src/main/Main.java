@@ -38,7 +38,7 @@ public class Main
 
 		System.out.println("Anzahl Solos " + anzahlSolos);
 
-		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCruncher.getScorePerGame());
+		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCruncher.getAverageScorePerGame());
 
 	}
 
