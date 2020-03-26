@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import dataCrunch.DataCruncher;
+import dataCrunch.DataCollector;
 import dataCrunch.PlayerPool;
 import dataTypes.Player;
 import dataTypes.Session;
@@ -19,7 +19,7 @@ public class Main
 	{
 		List<Session> sessions = FileMapper.calculateSessions();
 
-		DataCruncher dataCruncher = new DataCruncher(sessions);
+		DataCollector dataCruncher = new DataCollector(sessions);
 
 		int anzahlSpiele = dataCruncher.getGameCount();
 

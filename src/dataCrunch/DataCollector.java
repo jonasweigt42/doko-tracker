@@ -13,7 +13,7 @@ import dataTypes.Player;
 import dataTypes.PlayerScore;
 import dataTypes.Session;
 
-public class DataCruncher
+public class DataCollector
 {
 
 	private List<Session> sessionData;
@@ -27,7 +27,7 @@ public class DataCruncher
 
 	private DecimalFormat df = new DecimalFormat("0.00");
 
-	public DataCruncher(List<Session> sessionData)
+	public DataCollector(List<Session> sessionData)
 	{
 		this.sessionData = sessionData;
 		collectData();
