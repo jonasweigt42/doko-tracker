@@ -3,6 +3,7 @@ package dataCrunch;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -24,6 +25,13 @@ public class DataCollector
 	private List<Game> solos = new ArrayList<>();
 	private List<Game> allGames = new ArrayList<>();
 	private Map<LocalDate, String> averageScorePerSession = new TreeMap<>();
+	private Map<Integer, String> averageScorePerHundredGames = new TreeMap<>();
+
+	public Map<Integer, String> getAverageScorePerGames(int anzahl)
+	{
+		collectAverageScorePerGames(anzahl);
+		return averageScorePerHundredGames;
+	}
 
 	private DecimalFormat df = new DecimalFormat("0.00");
 
@@ -95,6 +103,27 @@ public class DataCollector
 			}
 		}
 		return df.format(((double) wonCounter / (double) soloCounter) * 100);
+	}
+	
+	private void collectAverageScorePerGames(int anzahl)
+	{	
+		allGames.sort(Comparator.comparing(Game::getDate));
+		List<Game> games = new ArrayList<>();
+		int counter = anzahl;
+		int score = 0;
+		System.out.println(allGames.size());
+		for(Game game : allGames)
+		{
+			score += game.getScore();
+			games.add(game);
+			if(games.size() == anzahl)
+			{
+				averageScorePerHundredGames.put(counter, df.format((double) score / (double) anzahl));
+				counter += anzahl;
+				games.clear();
+				score = 0;
+			}
+		}
 	}
 
 	public String getAverageScorePerGame()

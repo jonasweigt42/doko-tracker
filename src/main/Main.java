@@ -19,11 +19,11 @@ public class Main
 	{
 		List<Session> sessions = FileMapper.calculateSessions();
 
-		DataCollector dataCruncher = new DataCollector(sessions);
+		DataCollector dataCollector = new DataCollector(sessions);
 
-		int anzahlSpiele = dataCruncher.getGameCount();
+		int anzahlSpiele = dataCollector.getGameCount();
 
-		int anzahlSolos = dataCruncher.getSoloCount();
+		int anzahlSolos = dataCollector.getSoloCount();
 
 		List<Player> players = PlayerPool.getAllPlayers();
 
@@ -31,9 +31,9 @@ public class Main
 		for (Player p : players)
 		{
 			System.out.println("Name: " + p.getName() + ", Gesamtpunkte: " + p.getOverallScore()
-					+ ", " + dataCruncher.getWonPercentagePerPlayer(p) + " % gewonnen"
+					+ ", " + dataCollector.getWonPercentagePerPlayer(p) + " % gewonnen"
 					+ ", Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele)
-					+ ", Anzahl Solos: " + dataCruncher.getSolosForPlayer(p).size() + " - " + dataCruncher.getSoloWonPercentagePerPlayer(p) + "% gewonnen");
+					+ ", Anzahl Solos: " + dataCollector.getSolosForPlayer(p).size() + " - " + dataCollector.getSoloWonPercentagePerPlayer(p) + "% gewonnen");
 			System.out.println("");
 		}
 
@@ -41,13 +41,18 @@ public class Main
 
 		System.out.println("Anzahl Solos " + anzahlSolos);
 
-		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCruncher.getAverageScorePerGame());
+		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCollector.getAverageScorePerGame());
 		
-		Map<LocalDate, String> averageScorePerSession = dataCruncher.getAverageScorePerSession();
+		Map<LocalDate, String> averageScorePerSession = dataCollector.getAverageScorePerSession();
 
 		for(Entry<LocalDate, String> entry : averageScorePerSession.entrySet())
 		{
 			System.out.println(entry.getKey().toString() + ": " + entry.getValue());
+		}
+		
+		for(Entry<Integer, String> entry : dataCollector.getAverageScorePerGames(150).entrySet())
+		{
+			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}
 
 	}
