@@ -3,9 +3,9 @@ package dataCrunch;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 import dataTypes.Game;
@@ -23,7 +23,7 @@ public class DataCruncher
 	private int overallScore;
 	private List<Game> solos = new ArrayList<>();
 	private List<Game> allGames = new ArrayList<>();
-	private Map<LocalDate, String> averageScorePerSession = new HashMap<>();
+	private Map<LocalDate, String> averageScorePerSession = new TreeMap<>();
 
 	private DecimalFormat df = new DecimalFormat("0.00");
 

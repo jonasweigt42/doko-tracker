@@ -1,7 +1,10 @@
 package main;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import dataCrunch.DataCruncher;
 import dataCrunch.PlayerPool;
@@ -39,6 +42,13 @@ public class Main
 		System.out.println("Anzahl Solos " + anzahlSolos);
 
 		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCruncher.getAverageScorePerGame());
+		
+		Map<LocalDate, String> averageScorePerSession = dataCruncher.getAverageScorePerSession();
+
+		for(Entry<LocalDate, String> entry : averageScorePerSession.entrySet())
+		{
+			System.out.println(entry.getKey().toString() + ": " + entry.getValue());
+		}
 
 	}
 
