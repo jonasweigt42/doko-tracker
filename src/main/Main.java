@@ -50,7 +50,7 @@ public class Main
 			System.out.println(entry.getKey().toString() + ": " + entry.getValue());
 		}
 		
-		for(Entry<Integer, String> entry : dataCollector.getAverageScorePerGames(150).entrySet())
+		for(Entry<Integer, String> entry : dataCollector.getAverageScorePerGameCount(150).entrySet())
 		{
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}

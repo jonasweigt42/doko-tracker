@@ -27,12 +27,6 @@ public class DataCollector
 	private Map<LocalDate, String> averageScorePerSession = new TreeMap<>();
 	private Map<Integer, String> averageScorePerHundredGames = new TreeMap<>();
 
-	public Map<Integer, String> getAverageScorePerGames(int anzahl)
-	{
-		collectAverageScorePerGames(anzahl);
-		return averageScorePerHundredGames;
-	}
-
 	private DecimalFormat df = new DecimalFormat("0.00");
 
 	public DataCollector(List<Session> sessionData)
@@ -105,25 +99,31 @@ public class DataCollector
 		return df.format(((double) wonCounter / (double) soloCounter) * 100);
 	}
 	
-	private void collectAverageScorePerGames(int anzahl)
+	private void collectAverageScorePerGameCount(int count)
 	{	
 		allGames.sort(Comparator.comparing(Game::getDate));
 		List<Game> games = new ArrayList<>();
-		int counter = anzahl;
+		int counter = count;
 		int score = 0;
 		System.out.println(allGames.size());
 		for(Game game : allGames)
 		{
 			score += game.getScore();
 			games.add(game);
-			if(games.size() == anzahl)
+			if(games.size() == count)
 			{
-				averageScorePerHundredGames.put(counter, df.format((double) score / (double) anzahl));
-				counter += anzahl;
+				averageScorePerHundredGames.put(counter, df.format((double) score / (double) count));
+				counter += count;
 				games.clear();
 				score = 0;
 			}
 		}
+	}
+	
+	public Map<Integer, String> getAverageScorePerGameCount(int count)
+	{
+		collectAverageScorePerGameCount(count);
+		return averageScorePerHundredGames;
 	}
 
 	public String getAverageScorePerGame()
