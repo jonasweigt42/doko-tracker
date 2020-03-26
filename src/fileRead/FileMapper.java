@@ -39,7 +39,8 @@ public class FileMapper
 	{
 		BufferedReader csvReader = new BufferedReader(new FileReader(file));
 
-		Session session = new Session(mapFileNameToDate(file.getName()));
+		LocalDate date = mapFileNameToDate(file.getName());
+		Session session = new Session(date);
 
 		String firstline = csvReader.readLine();
 		String[] firstLineArray = firstline.split(",");
@@ -49,7 +50,7 @@ public class FileMapper
 		Player player3 = PlayerPool.getOrCreatePlayer(firstLineArray[3]);
 		Player player4 = PlayerPool.getOrCreatePlayer(firstLineArray[4]);
 
-		List<Game> gamesOfSession = extractGames(csvReader, player1, player2, player3, player4);
+		List<Game> gamesOfSession = extractGames(csvReader, player1, player2, player3, player4, date);
 		session.setGames(gamesOfSession);
 		return session;
 
@@ -65,7 +66,7 @@ public class FileMapper
 	}
 
 	private static List<Game> extractGames(BufferedReader csvReader, Player player1, Player player2, Player player3,
-			Player player4) throws IOException
+			Player player4, LocalDate date) throws IOException
 	{
 		List<Game> gamesOfSession = new ArrayList<>();
 		String line;
@@ -82,7 +83,7 @@ public class FileMapper
 			gameScores.add(new PlayerScore(gameData[4], player4));
 
 			gamesOfSession.add(new Game(gameScores, calcDealer(gameData[0], player1, player2, player3, player4),
-					mapPlayerByName(possibleSoloPlayer, player1, player2, player3, player4)));
+					mapPlayerByName(possibleSoloPlayer, player1, player2, player3, player4), date));
 
 		}
 		return gamesOfSession;

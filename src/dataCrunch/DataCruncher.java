@@ -38,23 +38,28 @@ public class DataCruncher
 		for (Session session : sessionData)
 		{
 			int sessionScore = 0;
-			gameCount += session.getGames().size();
 			for (Game game : session.getGames())
 			{
-				allGames.add(game);
-				overallScore += game.getScore();
+				collectGameData(game);
 				sessionScore += game.getScore();
-				if (game.getSoloPlayer() != null)
-				{
-					soloCount++;
-					solos.add(game);
-				}
 			}
 			averageScorePerSession.put(session.getDate(),
 					df.format((double) sessionScore / (double) session.getGames().size()));
 		}
 	}
 
+	private void collectGameData(Game game)
+	{
+		gameCount++;
+		allGames.add(game);
+		overallScore += game.getScore();
+		if (game.getSoloPlayer() != null)
+		{
+			soloCount++;
+			solos.add(game);
+		}
+	}
+	
 	public String getWonPercentagePerPlayer(Player player)
 	{
 		int wonCounter = 0;

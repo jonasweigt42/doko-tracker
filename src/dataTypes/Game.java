@@ -1,5 +1,6 @@
 package dataTypes;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Game
@@ -9,12 +10,14 @@ public class Game
 	private Player dealer;
 	private Player soloPlayer;
 	private int score;
+	private LocalDate date;
 	
-	public Game(List<PlayerScore> playerScores, Player dealer, Player soloPlayer)
+	public Game(List<PlayerScore> playerScores, Player dealer, Player soloPlayer, LocalDate date)
 	{
 		this.playerScores = playerScores;
 		this.dealer = dealer;
 		this.soloPlayer = soloPlayer;
+		this.date = date;
 		calculateScore();
 	}
 	
@@ -48,6 +51,11 @@ public class Game
 	public Player getSoloPlayer()
 	{
 		return soloPlayer;
+	}
+
+	public LocalDate getDate()
+	{
+		return date;
 	}
 	
 }
