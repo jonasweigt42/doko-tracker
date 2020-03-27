@@ -1,4 +1,4 @@
-package dataCrunch;
+package dataCollect;
 
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -25,7 +25,7 @@ public class DataCollector
 	private List<Game> solos = new ArrayList<>();
 	private List<Game> allGames = new ArrayList<>();
 	private Map<LocalDate, String> averageScorePerSession = new TreeMap<>();
-	private Map<Integer, String> averageScorePerHundredGames = new TreeMap<>();
+	private Map<Integer, String> averageScorePerQuarter = new TreeMap<>();
 
 	private DecimalFormat df = new DecimalFormat("0.00");
 
@@ -99,31 +99,31 @@ public class DataCollector
 		return df.format(((double) wonCounter / (double) soloCounter) * 100);
 	}
 	
-	private void collectAverageScorePerGameCount(int count)
+	private void collectAverageScorePerQuarter()
 	{	
 		allGames.sort(Comparator.comparing(Game::getDate));
 		List<Game> games = new ArrayList<>();
-		int counter = count;
+		int counter = allGames.size() / 4;
+		int counterSum = counter;
 		int score = 0;
-		System.out.println(allGames.size());
 		for(Game game : allGames)
 		{
 			score += game.getScore();
 			games.add(game);
-			if(games.size() == count)
+			if(games.size() == counter)
 			{
-				averageScorePerHundredGames.put(counter, df.format((double) score / (double) count));
-				counter += count;
+				averageScorePerQuarter.put(counterSum, df.format((double) score / (double) counter));
+				counterSum += counter;
 				games.clear();
 				score = 0;
 			}
 		}
 	}
 	
-	public Map<Integer, String> getAverageScorePerGameCount(int count)
+	public Map<Integer, String> getAverageScorePerQuarter()
 	{
-		collectAverageScorePerGameCount(count);
-		return averageScorePerHundredGames;
+		collectAverageScorePerQuarter();
+		return averageScorePerQuarter;
 	}
 
 	public String getAverageScorePerGame()

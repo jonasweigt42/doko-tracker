@@ -1,4 +1,4 @@
-package dataCrunch;
+package dataCollect;
 
 import java.util.ArrayList;
 import java.util.List;

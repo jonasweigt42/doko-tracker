@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import dataCrunch.DataCollector;
-import dataCrunch.PlayerPool;
+import dataCollect.DataCollector;
+import dataCollect.PlayerPool;
 import dataTypes.Player;
 import dataTypes.Session;
 import fileRead.FileMapper;
@@ -50,7 +50,7 @@ public class Main
 			System.out.println(entry.getKey().toString() + ": " + entry.getValue());
 		}
 		
-		for(Entry<Integer, String> entry : dataCollector.getAverageScorePerGameCount(150).entrySet())
+		for(Entry<Integer, String> entry : dataCollector.getAverageScorePerQuarter().entrySet())
 		{
 			System.out.println(entry.getKey() + ": " + entry.getValue());
 		}
