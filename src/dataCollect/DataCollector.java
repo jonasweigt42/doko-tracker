@@ -140,6 +140,11 @@ public class DataCollector
 	{
 		return solos.stream().filter(game -> game.getSoloPlayer().equals(player)).collect(Collectors.toList());
 	}
+	
+	public List<Game> getGamesDealtByPlayer(Player player)
+	{
+		return allGames.stream().filter(game -> game.getDealer().equals(player)).collect(Collectors.toList());
+	}
 
 	public int getOverallScore()
 	{

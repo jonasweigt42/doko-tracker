@@ -76,17 +76,82 @@ public class FileMapper
 
 			String possibleSoloPlayer = calcSoloPlayer(gameData);
 
-			List<PlayerScore> gameScores = new ArrayList<PlayerScore>();
-			gameScores.add(new PlayerScore(gameData[1], player1));
-			gameScores.add(new PlayerScore(gameData[2], player2));
-			gameScores.add(new PlayerScore(gameData[3], player3));
-			gameScores.add(new PlayerScore(gameData[4], player4));
+			List<PlayerScore> playerScores = calcPlayerScores(gameData, player1, player2, player3, player4);
 
-			gamesOfSession.add(new Game(gameScores, calcDealer(gameData[0], player1, player2, player3, player4),
+			gamesOfSession.add(new Game(playerScores, calcDealer(gameData[0], player1, player2, player3, player4),
 					mapPlayerByName(possibleSoloPlayer, player1, player2, player3, player4), date));
 
 		}
 		return gamesOfSession;
+	}
+
+	private static List<PlayerScore> calcPlayerScores(String[] gameData, Player player1, Player player2, Player player3,
+			Player player4) throws InvalidDealerException
+	{
+		List<PlayerScore> playerScores = new ArrayList<PlayerScore>();
+
+		Player dealer = calcDealer(gameData[0], player1, player2, player3, player4);
+
+		Player soloPlayer = mapPlayerByName(calcSoloPlayer(gameData), player1, player2, player3, player4);
+
+		//calculate positions
+		//player with position 1 is the player who starts the game, so he must be the next player after the dealer
+		//special with solo, if a player plays a solo, he starts the game
+		if (player1.equals(soloPlayer))
+		{
+			playerScores.add(new PlayerScore(gameData[1], player1, 1));
+			playerScores.add(new PlayerScore(gameData[2], player2, 2));
+			playerScores.add(new PlayerScore(gameData[3], player3, 3));
+			playerScores.add(new PlayerScore(gameData[4], player4, 4));
+		} else if (player2.equals(soloPlayer))
+		{
+			playerScores.add(new PlayerScore(gameData[1], player1, 4));
+			playerScores.add(new PlayerScore(gameData[2], player2, 1));
+			playerScores.add(new PlayerScore(gameData[3], player3, 2));
+			playerScores.add(new PlayerScore(gameData[4], player4, 3));
+		} else if (player3.equals(soloPlayer))
+		{
+			playerScores.add(new PlayerScore(gameData[1], player1, 3));
+			playerScores.add(new PlayerScore(gameData[2], player2, 4));
+			playerScores.add(new PlayerScore(gameData[3], player3, 1));
+			playerScores.add(new PlayerScore(gameData[4], player4, 2));
+		} else if (player4.equals(soloPlayer))
+		{
+			playerScores.add(new PlayerScore(gameData[1], player1, 2));
+			playerScores.add(new PlayerScore(gameData[2], player2, 3));
+			playerScores.add(new PlayerScore(gameData[3], player3, 4));
+			playerScores.add(new PlayerScore(gameData[4], player4, 1));
+		} else
+		{
+
+			if (dealer.equals(player1))
+			{
+				playerScores.add(new PlayerScore(gameData[1], player1, 4));
+				playerScores.add(new PlayerScore(gameData[2], player2, 1));
+				playerScores.add(new PlayerScore(gameData[3], player3, 2));
+				playerScores.add(new PlayerScore(gameData[4], player4, 3));
+			} else if (dealer.equals(player2))
+			{
+				playerScores.add(new PlayerScore(gameData[1], player1, 3));
+				playerScores.add(new PlayerScore(gameData[2], player2, 4));
+				playerScores.add(new PlayerScore(gameData[3], player3, 1));
+				playerScores.add(new PlayerScore(gameData[4], player4, 2));
+			} else if (dealer.equals(player3))
+			{
+				playerScores.add(new PlayerScore(gameData[1], player1, 2));
+				playerScores.add(new PlayerScore(gameData[2], player2, 3));
+				playerScores.add(new PlayerScore(gameData[3], player3, 4));
+				playerScores.add(new PlayerScore(gameData[4], player4, 1));
+			} else
+			{
+				playerScores.add(new PlayerScore(gameData[1], player1, 1));
+				playerScores.add(new PlayerScore(gameData[2], player2, 2));
+				playerScores.add(new PlayerScore(gameData[3], player3, 3));
+				playerScores.add(new PlayerScore(gameData[4], player4, 4));
+			}
+		}
+
+		return playerScores;
 	}
 
 	private static Player mapPlayerByName(String name, Player... players)
@@ -114,7 +179,7 @@ public class FileMapper
 		return LocalDate.of(Integer.parseInt(splitted[0]), Integer.parseInt(splitted[1]),
 				Integer.parseInt(splitted[2]));
 	}
-	
+
 	private static Player calcDealer(String name, Player... players) throws InvalidDealerException
 	{
 		Player dealer = mapPlayerByName(name, players);
@@ -127,7 +192,7 @@ public class FileMapper
 
 	private static String calcSoloPlayer(String[] gameData)
 	{
-		if(gameData.length > 5)
+		if (gameData.length > 5)
 		{
 			return gameData[5];
 		}
