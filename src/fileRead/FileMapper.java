@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import dataCollect.PlayerPool;
@@ -150,7 +151,7 @@ public class FileMapper
 				playerScores.add(new PlayerScore(gameData[4], player4, 4));
 			}
 		}
-
+		playerScores.sort(Comparator.comparing(PlayerScore::getPosition));
 		return playerScores;
 	}
 
