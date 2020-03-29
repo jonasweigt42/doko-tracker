@@ -20,9 +20,9 @@ import exceptions.InvalidHeaderException;
 public class FileMapper
 {
 
-	public static List<Session> calculateSessions() throws IOException
+	public static List<Session> calculateSessions(String folderString) throws IOException
 	{
-		List<File> files = FileMapper.loadFiles();
+		List<File> files = FileMapper.loadFiles(folderString);
 
 		List<Session> sessions = new ArrayList<>();
 
@@ -166,9 +166,9 @@ public class FileMapper
 		return null;
 	}
 
-	private static List<File> loadFiles()
+	private static List<File> loadFiles(String folderString)
 	{
-		final File folder = new File("src/data");
+		final File folder = new File(folderString);
 		return Arrays.asList(folder.listFiles());
 	}
 

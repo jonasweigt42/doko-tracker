@@ -15,7 +15,7 @@ public class Main
 
 	public static void main(String[] args) throws IOException
 	{
-		List<Session> sessions = FileMapper.calculateSessions();
+		List<Session> sessions = FileMapper.calculateSessions("src/data");
 
 		DataCollector dataCollector = new DataCollector(sessions);
 
