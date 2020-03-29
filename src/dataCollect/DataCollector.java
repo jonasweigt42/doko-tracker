@@ -34,33 +34,6 @@ public class DataCollector
 		this.sessionData = sessionData;
 		collectData();
 	}
-
-	private void collectData()
-	{
-		for (Session session : sessionData)
-		{
-			int sessionScore = 0;
-			for (Game game : session.getGames())
-			{
-				collectGameData(game);
-				sessionScore += game.getScore();
-			}
-			averageScorePerSession.put(session.getDate(),
-					df.format((double) sessionScore / (double) session.getGames().size()));
-		}
-	}
-
-	private void collectGameData(Game game)
-	{
-		gameCount++;
-		allGames.add(game);
-		overallScore += game.getScore();
-		if (game.getSoloPlayer() != null)
-		{
-			soloCount++;
-			solos.add(game);
-		}
-	}
 	
 	public String getWonPercentagePerPlayer(Player player)
 	{
@@ -98,28 +71,7 @@ public class DataCollector
 		}
 		return df.format(((double) wonCounter / (double) soloCounter) * 100);
 	}
-	
-	private void collectAverageScorePerQuarter()
-	{	
-		allGames.sort(Comparator.comparing(Game::getDate));
-		List<Game> games = new ArrayList<>();
-		int counter = allGames.size() / 4;
-		int counterSum = counter;
-		int score = 0;
-		for(Game game : allGames)
-		{
-			score += game.getScore();
-			games.add(game);
-			if(games.size() == counter)
-			{
-				averageScorePerQuarter.put(counterSum, df.format((double) score / (double) counter));
-				counterSum += counter;
-				games.clear();
-				score = 0;
-			}
-		}
-	}
-	
+		
 	public Map<Integer, String> getAverageScorePerQuarter()
 	{
 		collectAverageScorePerQuarter();
@@ -145,7 +97,55 @@ public class DataCollector
 	{
 		return allGames.stream().filter(game -> game.getDealer().equals(player)).collect(Collectors.toList());
 	}
+	
+	private void collectAverageScorePerQuarter()
+	{	
+		allGames.sort(Comparator.comparing(Game::getDate));
+		List<Game> games = new ArrayList<>();
+		int counter = allGames.size() / 4;
+		int counterSum = counter;
+		int score = 0;
+		for(Game game : allGames)
+		{
+			score += game.getScore();
+			games.add(game);
+			if(games.size() == counter)
+			{
+				averageScorePerQuarter.put(counterSum, df.format((double) score / (double) counter));
+				counterSum += counter;
+				games.clear();
+				score = 0;
+			}
+		}
+	}
 
+	private void collectGameData(Game game)
+	{
+		gameCount++;
+		allGames.add(game);
+		overallScore += game.getScore();
+		if (game.getSoloPlayer() != null)
+		{
+			soloCount++;
+			solos.add(game);
+		}
+	}
+	
+	private void collectData()
+	{
+		for (Session session : sessionData)
+		{
+			int sessionScore = 0;
+			for (Game game : session.getGames())
+			{
+				collectGameData(game);
+				sessionScore += game.getScore();
+			}
+			averageScorePerSession.put(session.getDate(),
+					df.format((double) sessionScore / (double) session.getGames().size()));
+		}
+	}
+	
 	public int getOverallScore()
 	{
 		return overallScore;
