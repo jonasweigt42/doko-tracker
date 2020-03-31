@@ -160,5 +160,10 @@ public class DataCollector
 	{
 		return soloCount;
 	}
+	
+	public double getOverallMoney()
+	{
+		return overallScore * 2 / 10;
+	}
 
 }

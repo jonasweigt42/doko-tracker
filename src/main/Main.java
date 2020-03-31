@@ -48,6 +48,7 @@ public class Main
 
 		System.out.println("Durchschnittliche Punktzahl pro Spiel: " + dataCollector.getAverageScorePerGame());
 
+		System.out.println("Mininmale Kohle mindestens im Pot: " + dataCollector.getOverallMoney() + "€");
 	}
 
 }
