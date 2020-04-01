@@ -26,9 +26,9 @@ public class Game
 		score = 0;
 		for(PlayerScore pScore : playerScores)
 		{
-			if(pScore.getscore() > 0)
+			if(pScore.getScore() > 0)
 			{
-				score = pScore.getscore();
+				score = pScore.getScore();
 			}
 		}
 	}

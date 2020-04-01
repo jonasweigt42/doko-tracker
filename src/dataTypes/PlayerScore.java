@@ -14,7 +14,7 @@ public class PlayerScore
 		player.addScore(Integer.parseInt(score));
 	}
 	
-	public int getscore()
+	public int getScore()
 	{
 		return Integer.parseInt(score);
 	}

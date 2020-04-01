@@ -3,7 +3,6 @@ package dataCollect;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -18,14 +17,12 @@ public class DataCollector
 {
 
 	private List<Session> sessionData;
-
 	private int gameCount;
 	private int soloCount;
-	private int overallScore;
+	private int overallGameScore;
 	private List<Game> solos = new ArrayList<>();
 	private List<Game> allGames = new ArrayList<>();
 	private Map<LocalDate, String> averageScorePerSession = new TreeMap<>();
-	private Map<Integer, String> averageScorePerQuarter = new TreeMap<>();
 
 	private DecimalFormat df = new DecimalFormat("0.00");
 
@@ -42,7 +39,7 @@ public class DataCollector
 		{
 			for (PlayerScore score : game.getPlayerScores())
 			{
-				if (score.getPlayer().equals(player) && score.getscore() == 0)
+				if (score.getPlayer().equals(player) && score.getScore() == 0)
 				{
 					wonCounter++;
 				}
@@ -62,7 +59,7 @@ public class DataCollector
 				soloCounter++;
 				for (PlayerScore score : game.getPlayerScores())
 				{
-					if (score.getPlayer().equals(player) && score.getscore() == 0)
+					if (score.getPlayer().equals(player) && score.getScore() == 0)
 					{
 						wonCounter++;
 					}
@@ -72,15 +69,9 @@ public class DataCollector
 		return df.format(((double) wonCounter / (double) soloCounter) * 100);
 	}
 		
-	public Map<Integer, String> getAverageScorePerQuarter()
-	{
-		collectAverageScorePerQuarter();
-		return averageScorePerQuarter;
-	}
-
 	public String getAverageScorePerGame()
 	{
-		return df.format((double) overallScore / (double) gameCount);
+		return df.format((double) overallGameScore / (double) gameCount);
 	}
 
 	public Map<LocalDate, String> getAverageScorePerSession()
@@ -97,33 +88,12 @@ public class DataCollector
 	{
 		return allGames.stream().filter(game -> game.getDealer().equals(player)).collect(Collectors.toList());
 	}
-	
-	private void collectAverageScorePerQuarter()
-	{	
-		allGames.sort(Comparator.comparing(Game::getDate));
-		List<Game> games = new ArrayList<>();
-		int counter = allGames.size() / 4;
-		int counterSum = counter;
-		int score = 0;
-		for(Game game : allGames)
-		{
-			score += game.getScore();
-			games.add(game);
-			if(games.size() == counter)
-			{
-				averageScorePerQuarter.put(counterSum, df.format((double) score / (double) counter));
-				counterSum += counter;
-				games.clear();
-				score = 0;
-			}
-		}
-	}
 
 	private void collectGameData(Game game)
 	{
 		gameCount++;
 		allGames.add(game);
-		overallScore += game.getScore();
+		overallGameScore += game.getScore();
 		if (game.getSoloPlayer() != null)
 		{
 			soloCount++;
@@ -146,11 +116,6 @@ public class DataCollector
 		}
 	}
 	
-	public int getOverallScore()
-	{
-		return overallScore;
-	}
-
 	public int getGameCount()
 	{
 		return gameCount;
@@ -161,9 +126,23 @@ public class DataCollector
 		return soloCount;
 	}
 	
-	public double getOverallMoney()
+	public double getOverallMoneyPaid()
 	{
-		return overallScore * 2 / 10;
+		double score = 0;
+		for(Game game : allGames)
+		{
+			for(PlayerScore pScore : game.getPlayerScores())
+			{
+				score += pScore.getScore();
+			}
+		}
+		return score / 10;
+	}
+	
+	//TODO implement
+	public Map<Integer, String> getAverageScorePerYear()
+	{
+		return null;
 	}
 
 }
