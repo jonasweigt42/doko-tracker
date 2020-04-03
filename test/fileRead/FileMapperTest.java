@@ -82,7 +82,6 @@ class FileMapperTest
 		List<Session> sessions = FileMapper.calculateSessions("test/data/validSolo");
 		Game game = sessions.get(0).getGames().get(0);
 		assertEquals(new Player("Eva"), game.getSoloPlayer());
-		
 	}
 	
 	@Test
@@ -91,7 +90,6 @@ class FileMapperTest
 		List<Session> sessions = FileMapper.calculateSessions("test/data/validSolo");
 		Game game = sessions.get(0).getGames().get(0);
 		assertEquals(new Player("Eva"), game.getDealer());
-		
 	}
 	
 	@Test
@@ -112,7 +110,7 @@ class FileMapperTest
 		List<PlayerScore> playerScores = game1.getPlayerScores();
 		assertEquals(1, playerScores.get(0).getPosition());
 		assertEquals(new Player("Jochen"), playerScores.get(0).getPlayer());
-		assertEquals(0, playerScores.get(0).getscore());
+		assertEquals(0, playerScores.get(0).getScore());
 	}
 
 }
