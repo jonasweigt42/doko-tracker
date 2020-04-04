@@ -14,6 +14,7 @@ import dataCollect.PlayerPool;
 import dataTypes.Game;
 import dataTypes.Player;
 import dataTypes.PlayerScore;
+import dataTypes.Position;
 import dataTypes.Session;
 import exceptions.InvalidDealerException;
 import exceptions.InvalidHeaderException;
@@ -96,59 +97,57 @@ public class FileMapper
 		Player soloPlayer = mapPlayerByName(calcSoloPlayer(gameData), player1, player2, player3, player4);
 
 		//calculate positions
-		//player with position 1 is the player who starts the game, so he must be the next player after the dealer
-		//special with solo, if a player plays a solo, he starts the game
 		if (player1.equals(soloPlayer))
 		{
-			playerScores.add(new PlayerScore(gameData[1], player1, 1));
-			playerScores.add(new PlayerScore(gameData[2], player2, 2));
-			playerScores.add(new PlayerScore(gameData[3], player3, 3));
-			playerScores.add(new PlayerScore(gameData[4], player4, 4));
+			playerScores.add(new PlayerScore(gameData[1], player1, Position.START_GAME));
+			playerScores.add(new PlayerScore(gameData[2], player2, Position.SECOND));
+			playerScores.add(new PlayerScore(gameData[3], player3, Position.THIRD));
+			playerScores.add(new PlayerScore(gameData[4], player4, Position.LAST));
 		} else if (player2.equals(soloPlayer))
 		{
-			playerScores.add(new PlayerScore(gameData[1], player1, 4));
-			playerScores.add(new PlayerScore(gameData[2], player2, 1));
-			playerScores.add(new PlayerScore(gameData[3], player3, 2));
-			playerScores.add(new PlayerScore(gameData[4], player4, 3));
+			playerScores.add(new PlayerScore(gameData[1], player1, Position.LAST));
+			playerScores.add(new PlayerScore(gameData[2], player2, Position.START_GAME));
+			playerScores.add(new PlayerScore(gameData[3], player3, Position.SECOND));
+			playerScores.add(new PlayerScore(gameData[4], player4, Position.THIRD));
 		} else if (player3.equals(soloPlayer))
 		{
-			playerScores.add(new PlayerScore(gameData[1], player1, 3));
-			playerScores.add(new PlayerScore(gameData[2], player2, 4));
-			playerScores.add(new PlayerScore(gameData[3], player3, 1));
-			playerScores.add(new PlayerScore(gameData[4], player4, 2));
+			playerScores.add(new PlayerScore(gameData[1], player1, Position.THIRD));
+			playerScores.add(new PlayerScore(gameData[2], player2, Position.LAST));
+			playerScores.add(new PlayerScore(gameData[3], player3, Position.START_GAME));
+			playerScores.add(new PlayerScore(gameData[4], player4, Position.SECOND));
 		} else if (player4.equals(soloPlayer))
 		{
-			playerScores.add(new PlayerScore(gameData[1], player1, 2));
-			playerScores.add(new PlayerScore(gameData[2], player2, 3));
-			playerScores.add(new PlayerScore(gameData[3], player3, 4));
-			playerScores.add(new PlayerScore(gameData[4], player4, 1));
+			playerScores.add(new PlayerScore(gameData[1], player1, Position.SECOND));
+			playerScores.add(new PlayerScore(gameData[2], player2, Position.THIRD));
+			playerScores.add(new PlayerScore(gameData[3], player3, Position.LAST));
+			playerScores.add(new PlayerScore(gameData[4], player4, Position.START_GAME));
 		} else
 		{
 
 			if (dealer.equals(player1))
 			{
-				playerScores.add(new PlayerScore(gameData[1], player1, 4));
-				playerScores.add(new PlayerScore(gameData[2], player2, 1));
-				playerScores.add(new PlayerScore(gameData[3], player3, 2));
-				playerScores.add(new PlayerScore(gameData[4], player4, 3));
+				playerScores.add(new PlayerScore(gameData[1], player1, Position.LAST));
+				playerScores.add(new PlayerScore(gameData[2], player2, Position.START_GAME));
+				playerScores.add(new PlayerScore(gameData[3], player3, Position.SECOND));
+				playerScores.add(new PlayerScore(gameData[4], player4, Position.THIRD));
 			} else if (dealer.equals(player2))
 			{
-				playerScores.add(new PlayerScore(gameData[1], player1, 3));
-				playerScores.add(new PlayerScore(gameData[2], player2, 4));
-				playerScores.add(new PlayerScore(gameData[3], player3, 1));
-				playerScores.add(new PlayerScore(gameData[4], player4, 2));
+				playerScores.add(new PlayerScore(gameData[1], player1, Position.THIRD));
+				playerScores.add(new PlayerScore(gameData[2], player2, Position.LAST));
+				playerScores.add(new PlayerScore(gameData[3], player3, Position.START_GAME));
+				playerScores.add(new PlayerScore(gameData[4], player4, Position.SECOND));
 			} else if (dealer.equals(player3))
 			{
-				playerScores.add(new PlayerScore(gameData[1], player1, 2));
-				playerScores.add(new PlayerScore(gameData[2], player2, 3));
-				playerScores.add(new PlayerScore(gameData[3], player3, 4));
-				playerScores.add(new PlayerScore(gameData[4], player4, 1));
+				playerScores.add(new PlayerScore(gameData[1], player1, Position.SECOND));
+				playerScores.add(new PlayerScore(gameData[2], player2, Position.THIRD));
+				playerScores.add(new PlayerScore(gameData[3], player3, Position.LAST));
+				playerScores.add(new PlayerScore(gameData[4], player4, Position.START_GAME));
 			} else
 			{
-				playerScores.add(new PlayerScore(gameData[1], player1, 1));
-				playerScores.add(new PlayerScore(gameData[2], player2, 2));
-				playerScores.add(new PlayerScore(gameData[3], player3, 3));
-				playerScores.add(new PlayerScore(gameData[4], player4, 4));
+				playerScores.add(new PlayerScore(gameData[1], player1, Position.START_GAME));
+				playerScores.add(new PlayerScore(gameData[2], player2, Position.SECOND));
+				playerScores.add(new PlayerScore(gameData[3], player3, Position.THIRD));
+				playerScores.add(new PlayerScore(gameData[4], player4, Position.LAST));
 			}
 		}
 		playerScores.sort(Comparator.comparing(PlayerScore::getPosition));

@@ -4,9 +4,9 @@ public class PlayerScore
 
 	private String score;
 	private Player player;
-	private int position;
+	private Position position;
 	
-	public PlayerScore(String score, Player player, int position)
+	public PlayerScore(String score, Player player, Position position)
 	{
 		this.score = score;
 		this.player = player;
@@ -24,7 +24,7 @@ public class PlayerScore
 		return player;
 	}
 
-	public int getPosition()
+	public Position getPosition()
 	{
 		return position;
 	}

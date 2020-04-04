@@ -11,6 +11,7 @@ import java.util.stream.Collectors;
 import dataTypes.Game;
 import dataTypes.Player;
 import dataTypes.PlayerScore;
+import dataTypes.Position;
 import dataTypes.Session;
 
 public class DataCollector
@@ -31,7 +32,7 @@ public class DataCollector
 		this.sessionData = sessionData;
 		collectData();
 	}
-	
+
 	public String getWonPercentagePerPlayer(Player player)
 	{
 		int wonCounter = 0;
@@ -46,6 +47,40 @@ public class DataCollector
 			}
 		}
 		return df.format(((double) wonCounter / (double) gameCount) * 100);
+	}
+
+	public String getWonPercentagePerPlayerWhenStart(Player player)
+	{
+		List<Game> games = filterGamesByPositionAndPlayer(player, Position.START_GAME);
+		
+		int wonCounter = 0;
+		for (Game game : games)
+		{
+			for (PlayerScore score : game.getPlayerScores())
+			{
+				if (score.getPlayer().equals(player) && score.getScore() == 0)
+				{
+					wonCounter++;
+				}
+			}
+		}
+		return df.format(((double) wonCounter / (double) games.size()) * 100);
+	}
+	
+	private List<Game> filterGamesByPositionAndPlayer(Player player, Position position)
+	{
+		List<Game> result = new ArrayList<>();
+		for(Game game : allGames)
+		{
+			for(PlayerScore score : game.getPlayerScores())
+			{
+				if(score.getPlayer().equals(player) && score.getPosition() == position)
+				{
+					result.add(game);
+				}
+			}
+		}
+		return result;
 	}
 
 	public String getSoloWonPercentagePerPlayer(Player player)
@@ -68,7 +103,7 @@ public class DataCollector
 		}
 		return df.format(((double) wonCounter / (double) soloCounter) * 100);
 	}
-		
+
 	public String getAverageScorePerGame()
 	{
 		return df.format((double) overallGameScore / (double) gameCount);
@@ -83,7 +118,7 @@ public class DataCollector
 	{
 		return solos.stream().filter(game -> game.getSoloPlayer().equals(player)).collect(Collectors.toList());
 	}
-	
+
 	public List<Game> getGamesDealtByPlayer(Player player)
 	{
 		return allGames.stream().filter(game -> game.getDealer().equals(player)).collect(Collectors.toList());
@@ -100,7 +135,7 @@ public class DataCollector
 			solos.add(game);
 		}
 	}
-	
+
 	private void collectData()
 	{
 		for (Session session : sessionData)
@@ -115,7 +150,7 @@ public class DataCollector
 					df.format((double) sessionScore / (double) session.getGames().size()));
 		}
 	}
-	
+
 	public int getGameCount()
 	{
 		return gameCount;
@@ -125,21 +160,21 @@ public class DataCollector
 	{
 		return soloCount;
 	}
-	
+
 	public double getOverallMoneyPaid()
 	{
 		double score = 0;
-		for(Game game : allGames)
+		for (Game game : allGames)
 		{
-			for(PlayerScore pScore : game.getPlayerScores())
+			for (PlayerScore pScore : game.getPlayerScores())
 			{
 				score += pScore.getScore();
 			}
 		}
 		return score / 10;
 	}
-	
-	//TODO implement
+
+	// TODO implement
 	public Map<Integer, String> getAverageScorePerYear()
 	{
 		return null;

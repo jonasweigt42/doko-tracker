@@ -29,14 +29,15 @@ public class Main
 		for (Player p : players)
 		{
 			System.out.println("Name: " + p.getName());
-			
+
 			System.out.println("Gesamtpunkte: " + p.getOverallScore() + ", "
-					+ dataCollector.getWonPercentagePerPlayer(p) + " % gewonnen");
+					+ dataCollector.getWonPercentagePerPlayer(p) + " % gewonnen, "
+					+ dataCollector.getWonPercentagePerPlayerWhenStart(p) + " % gewonnen und rausgekommen");
 
 			System.out.println("Punkte pro Spiel: " + df.format((double) p.getOverallScore() / (double) anzahlSpiele)
 					+ ", Anzahl Solos: " + dataCollector.getSolosForPlayer(p).size() + " - "
 					+ dataCollector.getSoloWonPercentagePerPlayer(p) + "% gewonnen");
-			
+
 			System.out.println("Spiele gegeben: " + dataCollector.getGamesDealtByPlayer(p).size());
 
 			System.out.println("");
